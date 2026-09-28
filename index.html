@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Ishani Shree - software engineer, 2027 batch. Systems and backend projects in C++, Python and TypeScript.">
+<meta name="description" content="Ishani Shree - software engineer and full-stack developer, 2027 batch. Systems, backend and full-stack projects in C++, Python and TypeScript.">
 <meta property="og:title" content="Ishani Shree">
-<meta property="og:description" content="Software engineer, 2027 batch. Systems and backend projects in C++, Python and TypeScript.">
+<meta property="og:description" content="Software engineer and full-stack developer, 2027 batch. Systems, backend and full-stack projects in C++, Python and TypeScript.">
 <meta property="og:type" content="website">
 <title>Ishani Shree</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -349,19 +349,20 @@
 
 <header class="billboard">
   <div class="bb-inner">
-    <div class="bb-eyebrow"><b>&#9632;</b> Software Engineer &middot; 2027 Batch</div>
+    <div class="bb-eyebrow"><b>&#9632;</b> Software Engineer &middot; Full-Stack Developer &middot; 2027 Batch</div>
     <h1 class="bb-name">Ishani Shree</h1>
     <div class="bb-meta">
-      <span class="badge-green">Open to SDE roles</span>
+      <span class="badge-green">Open to SDE &amp; full-stack roles</span>
       <span class="pill">C++</span>
       <span class="pill">Python</span>
       <span class="pill">TypeScript</span>
       <span>B.Tech CSE &middot; SRM IST &middot; CGPA 8.20</span>
     </div>
     <p class="bb-synopsis">
-      I build backend and systems software, and I'm most interested in the part where things go wrong &mdash;
+      I build backend and systems software &mdash; and the full-stack applications that run on top of it.
+      What I'm most interested in is the part where things go wrong:
       <strong>a slow consumer that shouldn't stall everyone else, a duplicated fetch that shouldn't double-count,
-      a shutdown path racing its own cleanup.</strong> Four projects below, with the measurements that show it.
+      a shutdown path racing its own cleanup.</strong> Every project below carries the measurements that show it.
     </p>
     <div class="bb-actions">
       <button class="btn btn-primary" data-open="beacon">
@@ -380,10 +381,25 @@
 
 <section class="row" id="featured">
   <div class="row-head">
-    <span class="row-title">Featured Projects</span>
+    <span class="row-title">Systems &amp; Backend</span>
     <span class="row-note">click any title for detail</span>
   </div>
-  <div class="rail" id="rail-featured"></div>
+  <div class="rail" id="rail-systems"></div>
+</section>
+
+<section class="row">
+  <div class="row-head">
+    <span class="row-title">Full-Stack Applications</span>
+    <span class="row-note">frontend, API and schema, end to end</span>
+  </div>
+  <div class="rail" id="rail-fullstack"></div>
+</section>
+
+<section class="row">
+  <div class="row-head">
+    <span class="row-title">Machine Learning &amp; Vision</span>
+  </div>
+  <div class="rail" id="rail-ml"></div>
 </section>
 
 <section class="row">
@@ -433,6 +449,7 @@
 <footer>
   <span>Ishani Shree &middot; Chennai, India</span>
   <span>ishav1230@gmail.com</span>
+  <span>Open to SDE &amp; full-stack roles &middot; 2027 batch</span>
   <span class="ft-links">
     <a href="https://github.com/Ishani-Shree">GitHub</a>
     <a href="https://www.linkedin.com/in/ishani-shree-033927247/">LinkedIn</a>
@@ -548,6 +565,18 @@
      repo:"https://github.com/Ishani-Shree/Face_reco",repoLabel:"Ishani-Shree/Face_reco",
      metrics:[{k:"Input",v:"live camera"},{k:"Output",v:"attendance log"}],
      body:["A desktop attendance system that identifies faces from a live camera feed in real time and writes the roll automatically."]},
+    {id:"medstore",title:"Medical Store",art:"art-2",initial:"M",lang:"Java",green:"Inventory + billing",
+     stack:"Java &middot; Swing &middot; MySQL",
+     desc:"Desktop system for running a medical store: stock, billing and record-keeping.",
+     repo:"https://github.com/Ishani-Shree/Medical_Store",repoLabel:"Ishani-Shree/Medical_Store",
+     metrics:[{k:"UI",v:"Java Swing"},{k:"Domain",v:"stock + billing"}],
+     body:["A Java Swing desktop application for managing a medical store &mdash; inventory tracking, billing and customer records, backed by a relational schema designed for the stock and sales tables to stay consistent."]},
+    {id:"translator",title:"Translator",art:"art-6",initial:"T",lang:"JavaScript",green:"Text + speech input",
+     stack:"JavaScript &middot; Web Speech API",
+     desc:"Multilingual translator taking either typed text or spoken input.",
+     repo:"https://github.com/Ishani-Shree/Translator",repoLabel:"Ishani-Shree/Translator",
+     metrics:[{k:"Input",v:"text + speech"},{k:"Output",v:"multilingual"}],
+     body:["A multilingual translator that accepts both typed text and speech input, handling the browser speech pipeline and the translation round trip in one interface."]},
     {id:"visualizers",title:"Algorithm Visualizers",art:"art-5",initial:"N",lang:"JavaScript",green:"N-Queens + sorting",
      stack:"JavaScript &middot; Canvas",
      desc:"Interactive walkthroughs of backtracking and comparison sorts, stepped frame by frame.",
@@ -575,13 +604,24 @@
     '</button>';
   }
 
-  function fill(elId, list){
+  // Genre rows. A title may appear in more than one row when it genuinely belongs
+  // to both -- Watermark is a systems project and a full-stack one.
+  var ROWS = {
+    "rail-systems":   ["beacon","watermark"],
+    "rail-fullstack": ["placetrack","shopzone","diabetes","watermark"],
+    "rail-ml":        ["microplastic","diabetes","facereco"],
+    "rail-more":      ["vulnweb","airline","visualizers","medstore","translator"]
+  };
+
+  function fill(elId, ids){
     var el = document.getElementById(elId);
     if(!el) return;
-    el.innerHTML = list.map(cardHTML).join("");
+    el.innerHTML = ids.map(function(id){
+      var p = ALL[id];
+      return p ? cardHTML(p) : "";
+    }).join("");
   }
-  fill("rail-featured", FEATURED);
-  fill("rail-more", MORE);
+  Object.keys(ROWS).forEach(function(k){ fill(k, ROWS[k]); });
 
   var scrim = document.getElementById("scrim");
   var lastFocus = null;
