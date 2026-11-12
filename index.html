@@ -221,6 +221,11 @@
     object-fit:cover;object-position:top center;
   }
   .art img.fit,.modal-art img.fit{object-fit:contain;background:#fff;}
+  .art img.cover,.modal-art img.cover{object-position:center;}
+  .card:hover .art img.cover{transform:scale(1.04);}
+  .art img.cover{transition:transform .35s ease;}
+  .art,.modal-art{overflow:hidden;}
+  .gallery img.fit{object-fit:contain;}
   .art.has-img::after{
     content:"";position:absolute;inset:0;
     background:linear-gradient(180deg,rgba(0,0,0,0) 35%,rgba(0,0,0,.88) 100%);
@@ -740,17 +745,22 @@
   function index(list){ list.forEach(function(p){ ALL[p.id] = p; }); }
   index(RECENT); index(FEATURED); index(MORE);
 
-  // Screenshots live in img/<name>.jpg. Projects without any keep the gradient art.
+  // Poster art for tiles and banners: img/cover-<id>.svg (one per project).
+  function coverTag(p, eager){
+    return '<img class="cover" src="img/cover-' + p.id + '.svg" alt=""' +
+      (eager ? '' : ' loading="lazy"') + ' decoding="async">';
+  }
+
+  // Real screenshots live in img/<name>.jpg and appear in the detail gallery.
   function imgTag(p, name, eager){
     return '<img src="img/' + name + '.jpg" alt="' + p.title + ' screenshot"' +
       (p.fit ? ' class="fit"' : '') + (eager ? '' : ' loading="lazy"') + ' decoding="async">';
   }
 
   function cardHTML(p){
-    var has = p.imgs && p.imgs.length;
     return '<button class="card" data-open="' + p.id + '" type="button">' +
-      '<div class="art ' + p.art + (has ? ' has-img' : '') + '">' +
-        (has ? imgTag(p, p.imgs[0]) : '<span class="initial" aria-hidden="true">' + p.initial + '</span>') +
+      '<div class="art ' + p.art + ' has-img">' +
+        coverTag(p) +
         (p.isNew ? '<span class="new-tag">New</span>' : '') +
         '<span class="arttitle">' + p.title + '</span>' +
       '</div>' +
@@ -798,7 +808,7 @@
       }).join("") + '</div>' : '';
     return '<div class="modal" role="dialog" aria-modal="true" aria-label="' + p.title + '">' +
       '<div class="modal-art ' + p.art + '">' +
-        (has ? imgTag(p, p.imgs[0], true) : '<span class="initial" aria-hidden="true">' + p.initial + '</span>') +
+        coverTag(p, true) +
         '<button class="modal-close" type="button" data-close aria-label="Close">&#10005;</button>' +
         '<h2>' + p.title + '</h2>' +
       '</div>' +

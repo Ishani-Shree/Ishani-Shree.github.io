@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" width="640" height="360">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#062616"/><stop offset="1" stop-color="#07090a"/></linearGradient>
+  <radialGradient id="glow" cx="0.734" cy="0.472" r="0.55"><stop offset="0" stop-color="#34d399" stop-opacity=".42"/><stop offset=".45" stop-color="#34d399" stop-opacity=".12"/><stop offset="1" stop-color="#34d399" stop-opacity="0"/></radialGradient>
+  <linearGradient id="vig" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#000" stop-opacity=".55"/><stop offset=".45" stop-color="#000" stop-opacity="0"/></linearGradient>
+  <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" fill="none" stroke="#34d399" stroke-opacity=".07" stroke-width="1"/></pattern>
+  <filter id="neon" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .07 0"/></filter>
+</defs>
+<rect width="640" height="360" fill="url(#bg)"/>
+<rect width="640" height="360" fill="url(#grid)"/>
+<rect width="640" height="360" fill="url(#glow)"/>
+<g fill="none" stroke="#34d399" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" filter="url(#neon)">
+
+<g stroke="#a7f3d0" stroke-width="5"><path d="M380 70 H350 V100 M560 70 H590 V100 M380 300 H350 V270 M560 300 H590 V270"/></g>
+<ellipse cx="470" cy="180" rx="68" ry="88"/>
+<g fill="#a7f3d0" stroke="#a7f3d0" stroke-width="2">
+<circle cx="445" cy="160" r="6"/><circle cx="495" cy="160" r="6"/><circle cx="470" cy="195" r="5"/><circle cx="450" cy="225" r="4"/><circle cx="490" cy="225" r="4"/></g>
+<g stroke="#a7f3d0" stroke-width="1.5" stroke-opacity=".6"><path d="M445 160 L495 160 L470 195 Z M450 225 L470 195 L490 225 Z"/></g>
+<path d="M340 185 H600" stroke-width="3" stroke-opacity=".6"/>
+</g>
+<rect width="640" height="360" fill="url(#vig)"/>
+<rect width="640" height="360" filter="url(#grain)" opacity=".9"/>
+</svg>

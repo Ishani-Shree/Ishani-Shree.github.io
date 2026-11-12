@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" width="640" height="360">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#04262c"/><stop offset="1" stop-color="#07090c"/></linearGradient>
+  <radialGradient id="glow" cx="0.734" cy="0.472" r="0.55"><stop offset="0" stop-color="#22d3ee" stop-opacity=".42"/><stop offset=".45" stop-color="#22d3ee" stop-opacity=".12"/><stop offset="1" stop-color="#22d3ee" stop-opacity="0"/></radialGradient>
+  <linearGradient id="vig" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#000" stop-opacity=".55"/><stop offset=".45" stop-color="#000" stop-opacity="0"/></linearGradient>
+  <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" fill="none" stroke="#22d3ee" stroke-opacity=".07" stroke-width="1"/></pattern>
+  <filter id="neon" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .07 0"/></filter>
+</defs>
+<rect width="640" height="360" fill="url(#bg)"/>
+<rect width="640" height="360" fill="url(#grid)"/>
+<rect width="640" height="360" fill="url(#glow)"/>
+<g fill="none" stroke="#22d3ee" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" filter="url(#neon)">
+
+<g transform="rotate(-35 470 190)"><rect x="380" y="150" width="180" height="76" rx="38"/>
+<path d="M470 150 V226"/><rect x="470" y="150" width="90" height="76" rx="0" fill="#22d3ee" fill-opacity=".2" stroke="none"/></g>
+<path d="M580 60 V120 M550 90 H610" stroke="#a5f3fc" stroke-width="10"/>
+<path d="M340 270 V300 M325 285 H355" stroke="#a5f3fc" stroke-width="5" stroke-opacity=".7"/>
+</g>
+<rect width="640" height="360" fill="url(#vig)"/>
+<rect width="640" height="360" filter="url(#grain)" opacity=".9"/>
+</svg>

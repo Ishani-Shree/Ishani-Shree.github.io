@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" width="640" height="360">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1d0f3a"/><stop offset="1" stop-color="#09080d"/></linearGradient>
+  <radialGradient id="glow" cx="0.734" cy="0.472" r="0.55"><stop offset="0" stop-color="#a78bfa" stop-opacity=".42"/><stop offset=".45" stop-color="#a78bfa" stop-opacity=".12"/><stop offset="1" stop-color="#a78bfa" stop-opacity="0"/></radialGradient>
+  <linearGradient id="vig" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#000" stop-opacity=".55"/><stop offset=".45" stop-color="#000" stop-opacity="0"/></linearGradient>
+  <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" fill="none" stroke="#a78bfa" stroke-opacity=".07" stroke-width="1"/></pattern>
+  <filter id="neon" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .07 0"/></filter>
+</defs>
+<rect width="640" height="360" fill="url(#bg)"/>
+<rect width="640" height="360" fill="url(#grid)"/>
+<rect width="640" height="360" fill="url(#glow)"/>
+<g fill="none" stroke="#a78bfa" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" filter="url(#neon)">
+
+<g fill="#a78bfa" fill-opacity=".18">
+<rect x="340" y="250" width="30" height="60"/><rect x="385" y="220" width="30" height="90"/><rect x="430" y="190" width="30" height="120"/>
+<rect x="475" y="160" width="30" height="150"/><rect x="520" y="130" width="30" height="180" stroke="#ddd6fe"/><rect x="565" y="100" width="30" height="210"/></g>
+<path d="M440 120 L455 70 L475 100 L495 55 L515 100 L535 70 L550 120 Z" stroke="#ddd6fe" fill="#ddd6fe" fill-opacity=".15"/>
+</g>
+<rect width="640" height="360" fill="url(#vig)"/>
+<rect width="640" height="360" filter="url(#grain)" opacity=".9"/>
+</svg>
