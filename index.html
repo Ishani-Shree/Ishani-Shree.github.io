@@ -215,6 +215,56 @@
   .card-lang{font-family:var(--mono);color:var(--grey);font-size:.72rem;}
   .card-desc{font-size:.82rem;color:var(--grey);line-height:1.45;}
 
+  /* Project screenshots on tiles and in the detail view */
+  .art img,.modal-art img{
+    position:absolute;inset:0;width:100%;height:100%;
+    object-fit:cover;object-position:top center;
+  }
+  .art img.fit,.modal-art img.fit{object-fit:contain;background:#fff;}
+  .art.has-img::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg,rgba(0,0,0,0) 35%,rgba(0,0,0,.88) 100%);
+  }
+  .art.has-img .arttitle{z-index:2;}
+  .new-tag{
+    position:absolute;top:8px;left:8px;z-index:3;
+    background:var(--red);color:#fff;
+    font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+    padding:2px 6px;border-radius:2px;
+  }
+  .gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin:18px 0 4px;}
+  .gallery a{display:block;aspect-ratio:16/10;border-radius:3px;overflow:hidden;background:#fff;border:1px solid var(--line);}
+  .gallery img{width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform .2s;}
+  .gallery a:hover img{transform:scale(1.05);}
+  .gallery-label{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--grey-dim);margin-top:18px;}
+
+  /* ================= CONTACT ================= */
+  .contact{max-width:1180px;margin:46px auto 0;padding-inline:24px;}
+  .contact-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:9px;}
+  .contact-intro p{font-size:.92rem;color:var(--grey);margin-bottom:10px;}
+  .contact-intro a{color:var(--white);border-bottom:1px solid #555;}
+  .contact-intro a:hover{border-color:var(--white);}
+  .form{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .field{display:flex;flex-direction:column;gap:5px;}
+  .field.full{grid-column:1 / -1;}
+  .field label{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--grey-dim);}
+  .field input,.field textarea{
+    font:inherit;font-size:.93rem;color:var(--white);
+    background:var(--bg-3);border:1px solid #333;border-radius:3px;
+    padding:10px 12px;width:100%;
+  }
+  .field textarea{min-height:130px;resize:vertical;}
+  .field input:focus,.field textarea:focus{outline:none;border-color:var(--red);}
+  .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;}
+  .form-foot{grid-column:1 / -1;display:flex;flex-wrap:wrap;align-items:center;gap:12px;}
+  .btn-red{background:var(--red);color:#fff;}
+  .btn-red:hover{background:var(--red-hi);}
+  .btn-red[disabled]{opacity:.6;cursor:wait;}
+  .form-status{font-size:.86rem;color:var(--grey);}
+  .form-status.ok{color:var(--green);}
+  .form-status.err{color:#ff6b6b;}
+  .form-status a{text-decoration:underline;}
+
   /* ================= SKILL GENRES ================= */
   .genres{
     display:flex;flex-wrap:wrap;gap:8px;
@@ -321,6 +371,8 @@
     .nav-right{width:100%;margin-left:0;}
     .modal-body{padding:18px 18px 22px;}
     .modal-art{padding:18px;}
+    .contact{padding-inline:16px;}
+    .contact-grid,.form{grid-template-columns:1fr;}
   }
   @media (prefers-reduced-motion:reduce){
     *{transition:none!important;animation:none!important;}
@@ -339,6 +391,7 @@
     <a href="#featured">Projects</a>
     <a href="#skills">Skills</a>
     <a href="#background">Background</a>
+    <a href="#contact">Contact</a>
   </div>
   <div class="nav-right">
     <a href="https://github.com/Ishani-Shree">GitHub</a>
@@ -373,6 +426,10 @@
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 00-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.5 9.5 0 015 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0012 2z"/></svg>
         View all code
       </a>
+      <a class="btn btn-ghost" href="#contact">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+        Contact me
+      </a>
     </div>
   </div>
 </header>
@@ -381,8 +438,15 @@
 
 <section class="row" id="featured">
   <div class="row-head">
+    <span class="row-title">New on Ishani</span>
+    <span class="row-note">most recent work &middot; click any title for detail</span>
+  </div>
+  <div class="rail" id="rail-new"></div>
+</section>
+
+<section class="row">
+  <div class="row-head">
     <span class="row-title">Systems &amp; Backend</span>
-    <span class="row-note">click any title for detail</span>
   </div>
   <div class="rail" id="rail-systems"></div>
 </section>
@@ -444,11 +508,48 @@
   </div>
 </section>
 
+<section class="contact" id="contact">
+  <div class="row-head" style="padding-inline:0;"><span class="row-title">Get in Touch</span></div>
+  <div class="contact-grid">
+    <div class="slab contact-intro">
+      <h3>Hiring, collaborating, or curious about a project?</h3>
+      <div class="when">usually replies within a day or two</div>
+      <p>Send a message with the form and it lands straight in my inbox &mdash; I'll reply to the email you give.</p>
+      <p>Prefer your own mail app? Write to <a href="mailto:ishav1230@gmail.com">ishav1230@gmail.com</a>,
+      or reach me on <a href="https://www.linkedin.com/in/ishani-shree-033927247/">LinkedIn</a>.</p>
+    </div>
+    <form class="slab form" id="contact-form" novalidate>
+      <div class="field">
+        <label for="cf-name">Name</label>
+        <input id="cf-name" name="name" type="text" autocomplete="name" required maxlength="100">
+      </div>
+      <div class="field">
+        <label for="cf-email">Your email</label>
+        <input id="cf-email" name="email" type="email" autocomplete="email" required maxlength="200">
+      </div>
+      <div class="field full">
+        <label for="cf-subject">Subject</label>
+        <input id="cf-subject" name="subject" type="text" maxlength="150" placeholder="e.g. SDE internship at …">
+      </div>
+      <div class="field full">
+        <label for="cf-message">Message</label>
+        <textarea id="cf-message" name="message" required maxlength="5000"></textarea>
+      </div>
+      <!-- Spam trap: hidden from people, bots fill it in and get dropped. -->
+      <div class="hp" aria-hidden="true"><input type="text" name="_honey" tabindex="-1" autocomplete="off"></div>
+      <div class="form-foot">
+        <button class="btn btn-red" type="submit" id="cf-send">Send message</button>
+        <span class="form-status" id="cf-status" role="status" aria-live="polite"></span>
+      </div>
+    </form>
+  </div>
+</section>
+
 </main>
 
 <footer>
   <span>Ishani Shree &middot; Chennai, India</span>
-  <span>ishav1230@gmail.com</span>
+  <a href="mailto:ishav1230@gmail.com">ishav1230@gmail.com</a>
   <span>Open to SDE &amp; full-stack roles &middot; 2027 batch</span>
   <span class="ft-links">
     <a href="https://github.com/Ishani-Shree">GitHub</a>
@@ -470,6 +571,7 @@
       desc:"Multi-client TCP server built on thread-per-client, with per-client writer queues so one slow consumer can't stall everyone.",
       repo:"https://github.com/Ishani-Shree/Beacon",
       repoLabel:"Ishani-Shree/Beacon",
+      imgs:["beacon-1","beacon-2"],
       metrics:[
         {k:"Model",v:"thread-per-client"},
         {k:"Locks",v:"<em>3</em> single-purpose"},
@@ -522,6 +624,7 @@
       desc:"EfficientNet-B2 fine-tuned to classify five polymer types from underwater imagery, served behind a Flask inference API.",
       repo:"https://github.com/Ishani-Shree/Underwater_Microplastic_Detection",
       repoLabel:"Ishani-Shree/Underwater_Microplastic_Detection",
+      imgs:["microplastic-1","microplastic-2"],
       metrics:[
         {k:"Validation accuracy",v:"<em>97.3%</em>"},
         {k:"Polymer classes",v:"5"}
@@ -534,16 +637,20 @@
   ];
 
   var MORE = [
-    {id:"shopzone",title:"ShopZone",art:"art-5",initial:"S",lang:"JavaScript",green:"92 products · 14 categories",
-     stack:"React &middot; Node.js &middot; JWT",
-     desc:"Full-stack e-commerce platform with JWT auth, 92 products across 14 categories.",
+    {id:"shopzone",title:"ShopZone",art:"art-5",initial:"S",lang:"JavaScript",green:"0 oversells under concurrency",
+     stack:"React &middot; Node.js &middot; Express &middot; PostgreSQL &middot; Jest &middot; GitHub Actions",
+     desc:"Full-stack e-commerce platform whose checkout stays correct under retries and concurrent buyers, backed by 51 API tests.",
      repo:"https://github.com/Ishani-Shree/ShopZone",repoLabel:"Ishani-Shree/ShopZone",
-     metrics:[{k:"Products",v:"<em>92</em>"},{k:"Categories",v:"14"},{k:"Auth",v:"JWT"}],
-     body:["A full-stack storefront with cart, catalogue and JWT-backed sessions, covering 92 products across 14 categories."]},
+     imgs:["shopzone-1","shopzone-2","shopzone-3","shopzone-4"],
+     metrics:[{k:"10 buyers, 9 in stock",v:"<em>9</em> orders, stock 0"},{k:"API tests",v:"<em>51</em>"},{k:"Checkout p50",v:"~40 ms"}],
+     body:["A full-stack storefront &mdash; catalogue of 92 products across 14 categories, cart, JWT auth, orders and an admin view &mdash; built on React, Express and PostgreSQL.",
+           "The interesting part is checkout. The original code let ten concurrent buyers take nine units and drove stock to &minus;1, and a double-clicked order became two. Checkout now runs in one transaction with an atomic <code>UPDATE &hellip; WHERE stock &gt;= qty</code>, a <code>CHECK (stock &gt;= 0)</code> backstop, and an <code>Idempotency-Key</code> under <code>UNIQUE (user_id, key)</code> so a retried request returns the original order instead of creating another.",
+           "51 Jest + supertest tests run against a real Postgres (22 of them fail on the original code), in GitHub Actions on every push. A load test of 5,000 checkouts all buying the same product &mdash; the worst case for row-lock contention &mdash; finished with 0% errors and the order count and stock matching exactly."]},
     {id:"diabetes",title:"Diabetes Risk Analyser",art:"art-6",initial:"D",lang:"TypeScript",green:"8 clinical parameters",
      stack:"React &middot; TypeScript &middot; FastAPI",
      desc:"Takes 8 clinical parameters and returns a scored risk assessment with confidence, ranked risk factors and dataset context.",
      repo:"https://github.com/Ishani-Shree/Diabetes_Risk_Analyser",repoLabel:"Ishani-Shree/Diabetes_Risk_Analyser",
+     imgs:["diabetes-1","diabetes-2","diabetes-3"],
      metrics:[{k:"Inputs",v:"<em>8</em> clinical parameters"},{k:"Frontend",v:"React + TS"},{k:"Service",v:"FastAPI"}],
      body:["A full-stack diabetes risk prediction app: a typed React client talking to a FastAPI service that runs the model and returns an instant risk assessment from 8 clinical parameters.",
            "The output is deliberately more than a single number &mdash; it carries a confidence score, the risk factors that drove the prediction, and dataset-level statistics for context, so a result can be read rather than just trusted."]},
@@ -551,12 +658,14 @@
      stack:"PHP &middot; OWASP &middot; CTF",
      desc:"Deliberately vulnerable application used as a target for security training and CTF practice.",
      repo:"https://github.com/Ishani-Shree/Vulnerable-Web-Application",repoLabel:"Ishani-Shree/Vulnerable-Web-Application",
+     imgs:["vulnweb-1","vulnweb-2","vulnweb-3"],
      metrics:[{k:"Purpose",v:"training target"},{k:"Focus",v:"OWASP basics"}],
      body:["A deliberately vulnerable web application built as a practice target &mdash; injection, broken auth and access-control flaws staged intentionally so they can be found and fixed. Written to learn the defensive side by building the offensive one."]},
     {id:"airline",title:"Airline Reservation",art:"art-3",initial:"A",lang:"Java",green:"Swing + MySQL",
      stack:"Java &middot; Swing &middot; MySQL",
      desc:"Desktop reservation system with booking, seat allocation and persistence over MySQL.",
      repo:"https://github.com/Ishani-Shree/Airline_Reservation_System",repoLabel:"Ishani-Shree/Airline_Reservation_System",
+     imgs:["airline-1","airline-2","airline-3"],
      metrics:[{k:"UI",v:"Java Swing"},{k:"Store",v:"MySQL"}],
      body:["A desktop airline reservation system in Java Swing over MySQL &mdash; booking flow, seat allocation and persistent records, with the schema designed alongside the UI."]},
     {id:"facereco",title:"Face Reco",art:"art-4",initial:"F",lang:"Python",green:"Real-time recognition",
@@ -569,12 +678,14 @@
      stack:"Java &middot; Swing &middot; MySQL",
      desc:"Desktop system for running a medical store: stock, billing and record-keeping.",
      repo:"https://github.com/Ishani-Shree/Medical_Store",repoLabel:"Ishani-Shree/Medical_Store",
+     imgs:["medstore-1","medstore-2"],
      metrics:[{k:"UI",v:"Java Swing"},{k:"Domain",v:"stock + billing"}],
      body:["A Java Swing desktop application for managing a medical store &mdash; inventory tracking, billing and customer records, backed by a relational schema designed for the stock and sales tables to stay consistent."]},
     {id:"translator",title:"Translator",art:"art-6",initial:"T",lang:"JavaScript",green:"Text + speech input",
      stack:"JavaScript &middot; Web Speech API",
      desc:"Multilingual translator taking either typed text or spoken input.",
      repo:"https://github.com/Ishani-Shree/Translator",repoLabel:"Ishani-Shree/Translator",
+     imgs:["translator-1"],
      metrics:[{k:"Input",v:"text + speech"},{k:"Output",v:"multilingual"}],
      body:["A multilingual translator that accepts both typed text and speech input, handling the browser speech pipeline and the translation round trip in one interface."]},
     {id:"visualizers",title:"Algorithm Visualizers",art:"art-5",initial:"N",lang:"JavaScript",green:"N-Queens + sorting",
@@ -586,14 +697,61 @@
            "The sorting visualizer lives in a <a style=\"color:#e50914\" href=\"https://github.com/Ishani-Shree/Sorting_visualizer\">separate repo</a>."]}
   ];
 
+  // Recent work (Oct-Nov 2026). Figures with white backgrounds use fit:true so
+  // the whole chart shows instead of being cropped.
+  var RECENT = [
+    {id:"parakh",title:"Parakh",art:"art-5",initial:"P",lang:"Python",green:"36% → 67% held-out pass rate",isNew:true,fit:true,
+     stack:"Python &middot; faster-whisper &middot; edge-tts &middot; audio simulation",
+     desc:"Stress-tests voice agents on difficult Hinglish phone calls: simulated callers, degraded audio, speech-to-text, scored outcomes.",
+     repo:"https://github.com/Ishani-Shree/Parakh",repoLabel:"Ishani-Shree/Parakh",
+     imgs:["parakh-1","parakh-2","parakh-3"],
+     metrics:[{k:"Held-out pass rate",v:"36% &rarr; <em>67%</em>"},{k:"Wrong actions",v:"<em>0</em> in 1,220 calls"},{k:"p95 per turn",v:"8.9 s"}],
+     body:["Parakh (&ldquo;to test the quality of something&rdquo;) simulates callers confirming cash-on-delivery orders in Hinglish, degrades their audio the way a phone line and street or crowd noise would, runs it through Whisper into an agent, and scores whether the agent took the right action &mdash; because shipping an order the customer cancelled has a real cost.",
+           "Making the agent tolerate sound-alike spellings lifted the pass rate on held-out scenarios &mdash; written before the fix and never used to tune it &mdash; from 36% to 67%, with no wrong actions in 1,220 calls: when unsure, the agent hands off to a human.",
+           "The evaluation caught its own flaws too: retries that replayed the identical clip made a small model look better under noise, and a prompt hint containing test vocabulary inflated scores. Speed is the honest blocker for live use &mdash; the slowest 5% of turns take 8.9 s or more."]},
+    {id:"energygpu",title:"Energy-Aware GPU",art:"art-4",initial:"E",lang:"Python",green:"up to 83% less energy / sample",isNew:true,fit:true,
+     stack:"Python &middot; PyTorch &middot; NVML &middot; Streamlit",
+     desc:"Measures the energy GPU workloads really consume, then schedules jobs to meet deadlines with as little energy as possible.",
+     repo:"https://github.com/Ishani-Shree/Energy_Aware_GPU",repoLabel:"Ishani-Shree/Energy_Aware_GPU",
+     imgs:["energy-1","energy-2","energy-3"],
+     metrics:[{k:"ResNet-18 train energy",v:"17.0 &rarr; <em>2.9 mJ</em>/sample"},{k:"Window energy",v:"<em>&minus;62%</em>"},{k:"Deadlines met",v:"0/5 &rarr; <em>5/5</em>"}],
+     body:["A profiler and scheduler for GPU jobs on an RTX 4060 laptop GPU. It sweeps batch size and precision (FP32, TF32, FP16) across matrix multiply, ResNet-18 training and ResNet-50 inference, and plans each job's configuration so all deadlines are met at minimum energy.",
+           "Measurement came first, and it needed validating: the NVML hardware energy counter implied 325&ndash;367 W from a GPU rated at about 140 W, so the monitor integrates power sampled every 10 ms and trusts the counter only when the two agree within 20%. It also models the GPU's slow drop to idle and flags power-cap changes mid-sweep.",
+           "Result: up to 83% less energy per sample, and a 5-job schedule that met every deadline using 62% less energy than the default. The honest finding is that with only batch size and precision as knobs, the fastest configuration is also the most efficient &mdash; energy-aware scheduling only beats race-to-idle once clock frequency (DVFS) is in play, which a simulation put at up to 32% more savings."]},
+    {id:"scamdetect",title:"Investment Scam Detector",art:"art-1",initial:"I",lang:"Python",green:"95.6% recall on investment scams",isNew:true,
+     stack:"Python &middot; scikit-learn &middot; PyTorch &middot; OpenCV &middot; Flask",
+     desc:"Multimodal detector fusing message text, screenshots, sender metadata and links to flag Ponzi, crypto and fake-trading scams.",
+     repo:"https://github.com/Ishani-Shree/investment-scam-detector",repoLabel:"Ishani-Shree/investment-scam-detector",
+     metrics:[{k:"ROC-AUC",v:"<em>0.997</em>"},{k:"Investment-scam recall",v:"0.691 &rarr; <em>0.956</em>"},{k:"False-positive rate",v:"1.6%"}],
+     body:["Detects investment scams &mdash; &ldquo;paisa double&rdquo; schemes, fake trading signals, crypto pig-butchering, withdrawal-fee traps &mdash; with one expert per modality: a text model over a scam-pattern lexicon and TF-IDF, OpenCV image features, sender and payment metadata, and a URL model that spots look-alike and impersonating domains. A stacking meta-learner trained with modality dropout fuses them, so it still works when an input is missing.",
+           "Trained on about 24k real-world rows (Indian SMS and email, Hinglish scam text, CryptoScamDB, OpenPhish and Tranco), with near-duplicate messages kept on one side of the split. Adding the URL expert raised recall on investment scams from 0.691 to 0.956 while cutting false positives on legitimate messages to 1.6%.",
+           "The caveats are part of the result: some source texts are template-generated, so the text score is optimistic. A Flask demo explains every verdict &mdash; a score per input and the patterns that triggered it."]},
+    {id:"reachinbox",title:"ReachInbox Scheduler",art:"art-2",initial:"R",lang:"TypeScript",green:"survives restarts, no duplicates",isNew:true,
+     stack:"TypeScript &middot; Express &middot; BullMQ &middot; Redis &middot; PostgreSQL &middot; Prisma &middot; Elasticsearch &middot; React",
+     desc:"Email campaign scheduler where every email is a delayed queue job &mdash; no cron &mdash; built to survive restarts without double-sending.",
+     repo:"https://github.com/Ishani-Shree/Reachinbox-scheduler",repoLabel:"Ishani-Shree/Reachinbox-scheduler",
+     metrics:[{k:"Scheduling",v:"delayed BullMQ jobs"},{k:"Global limit",v:"&le;50 jobs/s"},{k:"Duplicate sends",v:"<em>0</em> by design"}],
+     body:["A full-stack email scheduler: campaigns live in Postgres, each email is a delayed BullMQ job in Redis (AOF on), workers send through SMTP, and every status change is indexed in Elasticsearch for search. Google OAuth, Slack notifications and a React dashboard sit on top.",
+           "The design goal was that restarts and retries are boring. Postgres is the source of truth and a reconciliation pass re-enqueues any scheduled row that lost its job; idempotency comes in layers &mdash; an <code>Idempotency-Key</code> on campaign create under a unique index, a row claim before sending, and an early exit for rows already sent.",
+           "A Redis Lua rate limiter caps sends per sender and globally, workers scale horizontally, and graceful shutdown lets in-flight sends finish. It deploys as a single free Render service running both the API and the worker."]}
+  ];
+
   var ALL = {};
   function index(list){ list.forEach(function(p){ ALL[p.id] = p; }); }
-  index(FEATURED); index(MORE);
+  index(RECENT); index(FEATURED); index(MORE);
+
+  // Screenshots live in img/<name>.jpg. Projects without any keep the gradient art.
+  function imgTag(p, name, eager){
+    return '<img src="img/' + name + '.jpg" alt="' + p.title + ' screenshot"' +
+      (p.fit ? ' class="fit"' : '') + (eager ? '' : ' loading="lazy"') + ' decoding="async">';
+  }
 
   function cardHTML(p){
+    var has = p.imgs && p.imgs.length;
     return '<button class="card" data-open="' + p.id + '" type="button">' +
-      '<div class="art ' + p.art + '">' +
-        '<span class="initial" aria-hidden="true">' + p.initial + '</span>' +
+      '<div class="art ' + p.art + (has ? ' has-img' : '') + '">' +
+        (has ? imgTag(p, p.imgs[0]) : '<span class="initial" aria-hidden="true">' + p.initial + '</span>') +
+        (p.isNew ? '<span class="new-tag">New</span>' : '') +
         '<span class="arttitle">' + p.title + '</span>' +
       '</div>' +
       '<div class="card-body">' +
@@ -607,9 +765,10 @@
   // Genre rows. A title may appear in more than one row when it genuinely belongs
   // to both -- Watermark is a systems project and a full-stack one.
   var ROWS = {
-    "rail-systems":   ["beacon","watermark"],
-    "rail-fullstack": ["placetrack","shopzone","diabetes","watermark"],
-    "rail-ml":        ["microplastic","diabetes","facereco"],
+    "rail-new":       ["parakh","shopzone","energygpu","scamdetect","reachinbox","watermark"],
+    "rail-systems":   ["beacon","energygpu","reachinbox","watermark"],
+    "rail-fullstack": ["shopzone","reachinbox","placetrack","diabetes","watermark"],
+    "rail-ml":        ["parakh","scamdetect","microplastic","diabetes","facereco"],
     "rail-more":      ["vulnweb","airline","visualizers","medstore","translator"]
   };
 
@@ -631,17 +790,23 @@
       return '<div class="metric"><div class="k">' + m.k + '</div><div class="v">' + m.v + '</div></div>';
     }).join("");
     var paras = p.body.map(function(t){ return '<p>' + t + '</p>'; }).join("");
+    var has = p.imgs && p.imgs.length;
+    // Every screenshot, clickable to open full size in a new tab.
+    var gallery = has ? '<div class="gallery-label">Screenshots &middot; click to enlarge</div><div class="gallery">' +
+      p.imgs.map(function(n){
+        return '<a href="img/' + n + '.jpg" target="_blank" rel="noopener">' + imgTag(p, n) + '</a>';
+      }).join("") + '</div>' : '';
     return '<div class="modal" role="dialog" aria-modal="true" aria-label="' + p.title + '">' +
       '<div class="modal-art ' + p.art + '">' +
+        (has ? imgTag(p, p.imgs[0], true) : '<span class="initial" aria-hidden="true">' + p.initial + '</span>') +
         '<button class="modal-close" type="button" data-close aria-label="Close">&#10005;</button>' +
-        '<span class="initial" aria-hidden="true">' + p.initial + '</span>' +
         '<h2>' + p.title + '</h2>' +
       '</div>' +
       '<div class="modal-body">' +
         '<div class="modal-meta"><span class="badge-green">' + p.green + '</span><span class="pill">' + p.lang + '</span></div>' +
         '<div class="stack-line">' + p.stack + '</div>' +
         '<div class="readout">' + metrics + '</div>' +
-        paras +
+        paras + gallery +
         '<div class="modal-actions">' +
           '<a class="btn btn-primary" href="' + p.repo + '">View on GitHub</a>' +
         '</div>' +
@@ -678,6 +843,60 @@
   document.addEventListener("keydown", function(e){
     if(e.key === "Escape" && !scrim.hidden) close();
   });
+
+  // ---- Contact form ----
+  // GitHub Pages has no server, so messages go through FormSubmit (free, no
+  // account), which emails them to the address below. The very first message
+  // triggers a one-time "Activate form" email to that inbox.
+  var CONTACT_EMAIL = "ishav1230@gmail.com";
+  var ENDPOINT = "https://formsubmit.co/ajax/" + CONTACT_EMAIL;
+  var form = document.getElementById("contact-form");
+  var statusEl = document.getElementById("cf-status");
+  var sendBtn = document.getElementById("cf-send");
+
+  function setStatus(cls, html){ statusEl.className = "form-status " + cls; statusEl.innerHTML = html; }
+  function mailtoFallback(d){
+    var href = "mailto:" + CONTACT_EMAIL +
+      "?subject=" + encodeURIComponent(d.subject || "Hello from your portfolio") +
+      "&body=" + encodeURIComponent(d.message + "\n\n- " + d.name + " (" + d.email + ")");
+    return ' <a href="' + href + '">Send it from your mail app instead</a>.';
+  }
+
+  if(form){
+    form.addEventListener("submit", function(e){
+      e.preventDefault();
+      var d = {
+        name: document.getElementById("cf-name").value.trim(),
+        email: document.getElementById("cf-email").value.trim(),
+        subject: document.getElementById("cf-subject").value.trim(),
+        message: document.getElementById("cf-message").value.trim()
+      };
+      if(form.querySelector("[name=_honey]").value) return; // a bot filled the hidden field
+      if(!d.name || !d.message){ setStatus("err", "Please add your name and a message."); return; }
+      if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)){ setStatus("err", "Please enter a valid email so I can reply."); document.getElementById("cf-email").focus(); return; }
+
+      sendBtn.disabled = true; sendBtn.textContent = "Sending…"; setStatus("", "");
+      fetch(ENDPOINT, {
+        method: "POST",
+        headers: {"Content-Type": "application/json", "Accept": "application/json"},
+        body: JSON.stringify({
+          name: d.name, email: d.email, message: d.message,
+          _subject: "Portfolio: " + (d.subject || "message from " + d.name),
+          _replyto: d.email, _template: "table", _captcha: "false"
+        })
+      }).then(function(r){ return r.json().catch(function(){ return {}; }).then(function(j){ return {ok:r.ok, j:j}; }); })
+        .then(function(res){
+          if(res.ok && String(res.j.success) === "true"){
+            form.reset();
+            setStatus("ok", "Thanks, " + d.name.replace(/[<>&"]/g, "") + "! Your message is on its way &mdash; I'll reply to your email.");
+          } else {
+            setStatus("err", "Sorry, that didn't go through." + mailtoFallback(d));
+          }
+        })
+        .catch(function(){ setStatus("err", "Couldn't reach the mail service." + mailtoFallback(d)); })
+        .then(function(){ sendBtn.disabled = false; sendBtn.textContent = "Send message"; });
+    });
+  }
 })();
 </script>
 </body>
