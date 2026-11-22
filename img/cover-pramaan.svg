@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" width="640" height="360">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#062a2a"/><stop offset="1" stop-color="#08090c"/></linearGradient>
+  <radialGradient id="glow" cx="0.734" cy="0.472" r="0.55"><stop offset="0" stop-color="#2dd4bf" stop-opacity=".40"/><stop offset=".45" stop-color="#2dd4bf" stop-opacity=".12"/><stop offset="1" stop-color="#2dd4bf" stop-opacity="0"/></radialGradient>
+  <linearGradient id="vig" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#000" stop-opacity=".55"/><stop offset=".45" stop-color="#000" stop-opacity="0"/></linearGradient>
+  <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" fill="none" stroke="#2dd4bf" stroke-opacity=".07" stroke-width="1"/></pattern>
+  <filter id="neon" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .07 0"/></filter>
+</defs>
+<rect width="640" height="360" fill="url(#bg)"/>
+<rect width="640" height="360" fill="url(#grid)"/>
+<rect width="640" height="360" fill="url(#glow)"/>
+<g fill="none" stroke="#2dd4bf" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" filter="url(#neon)">
+<!-- document page with folded corner -->
+<path d="M370 75 H475 L515 115 V285 H370 Z" fill="#2dd4bf" fill-opacity=".12"/>
+<path d="M475 75 V115 H515"/>
+<!-- text lines -->
+<g stroke="#ccfbf1" stroke-width="6">
+<path d="M395 140 H460 M395 170 H490 M395 200 H450 M395 230 H480"/></g>
+<!-- citation brackets -->
+<path d="M548 128 H538 V182 H548 M578 128 H588 V182 H578" stroke-width="5"/>
+<path d="M563 140 V170" stroke="#ccfbf1" stroke-width="6"/>
+<!-- verification check -->
+<circle cx="565" cy="250" r="34" fill="#2dd4bf" fill-opacity=".15"/>
+<path d="M548 251 L561 264 L584 238" stroke="#ccfbf1" stroke-width="7"/>
+</g>
+<rect width="640" height="360" fill="url(#vig)"/>
+<rect width="640" height="360" filter="url(#grain)" opacity=".9"/>
+</svg>

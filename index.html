@@ -423,9 +423,9 @@
       a shutdown path racing its own cleanup.</strong> Every project below carries the measurements that show it.
     </p>
     <div class="bb-actions">
-      <button class="btn btn-primary" data-open="beacon">
+      <button class="btn btn-primary" data-open="pramaan">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5 3.5v17l14-8.5-14-8.5z"/></svg>
-        Featured: Beacon
+        Featured: Pramaan
       </button>
       <a class="btn btn-ghost" href="https://github.com/Ishani-Shree">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 00-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.5 9.5 0 015 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0012 2z"/></svg>
@@ -488,7 +488,7 @@
     <div class="genre"><b>Data</b>PostgreSQL &middot; MySQL &middot; MongoDB &middot; Query-plan analysis</div>
     <div class="genre"><b>Frontend</b>React 18 &middot; TypeScript &middot; Tailwind</div>
     <div class="genre"><b>Tooling</b>Git &middot; Docker &middot; Linux &middot; CI/CD</div>
-    <div class="genre"><b>ML</b>PyTorch &middot; scikit-learn &middot; TensorFlow</div>
+    <div class="genre"><b>ML</b>PyTorch &middot; scikit-learn &middot; TensorFlow &middot; RAG &middot; pgvector</div>
   </div>
 </section>
 
@@ -705,6 +705,14 @@
   // Recent work (Oct-Nov 2026). Figures with white backgrounds use fit:true so
   // the whole chart shows instead of being cropped.
   var RECENT = [
+    {id:"pramaan",title:"Pramaan",art:"art-3",initial:"P",lang:"Python",green:"96% correct · 5/5 unanswerable refused",isNew:true,
+     stack:"Python &middot; FastAPI &middot; PostgreSQL + pgvector &middot; Ollama (qwen2.5:7b) &middot; pytest &middot; GitHub Actions",
+     desc:"Cited, self-evaluating RAG over technical docs: every claim's citation is checked in code, and it says &ldquo;I don't know&rdquo; instead of guessing.",
+     repo:"https://github.com/Ishani-Shree/Pramaan",repoLabel:"Ishani-Shree/Pramaan",
+     metrics:[{k:"Answerable correct",v:"<em>24/25</em> (96%)"},{k:"Unanswerable refused",v:"<em>5/5</em>"},{k:"Tests",v:"<em>75</em>"}],
+     body:["Pramaan (&ldquo;proof, evidence&rdquo;) answers questions about my projects using only their READMEs. Documents are split at headings, embedded and stored in PostgreSQL with pgvector; questions run through vector search, Postgres full-text search, or both fused with reciprocal rank fusion. Ingestion is idempotent &mdash; chunks are keyed by a content hash, so re-running it embeds only what changed.",
+           "The part I care about is what happens when the model is wrong. The LLM must return JSON claims tied to chunk ids; a malformed reply is retried once, and an answer that cites a chunk it wasn't given, or makes an uncited claim, becomes an abstention instead of reaching the user. Questions far from every document are refused before the model is even called.",
+           "A 30-question evaluation compares chunk sizes and search modes. The best config (800-word chunks, vector) answered 24 of 25 answerable questions correctly and refused all 5 unanswerable ones. The first run scored 0% on the long-chunk configs because Ollama silently cut the prompt to 2,048 tokens and dropped the instructions &mdash; the checks turned every bad reply into an abstention, so no wrong answer got through, and a regression test now guards it."]},
     {id:"parakh",title:"Parakh",art:"art-5",initial:"P",lang:"Python",green:"36% → 67% held-out pass rate",isNew:true,fit:true,
      stack:"Python &middot; faster-whisper &middot; edge-tts &middot; audio simulation",
      desc:"Stress-tests voice agents on difficult Hinglish phone calls: simulated callers, degraded audio, speech-to-text, scored outcomes.",
@@ -775,10 +783,10 @@
   // Genre rows. A title may appear in more than one row when it genuinely belongs
   // to both -- Watermark is a systems project and a full-stack one.
   var ROWS = {
-    "rail-new":       ["parakh","shopzone","energygpu","scamdetect","reachinbox","watermark"],
-    "rail-systems":   ["beacon","energygpu","reachinbox","watermark"],
-    "rail-fullstack": ["shopzone","reachinbox","placetrack","diabetes","watermark"],
-    "rail-ml":        ["parakh","scamdetect","microplastic","diabetes","facereco"],
+    "rail-new":       ["pramaan","watermark","shopzone","parakh","energygpu","scamdetect","reachinbox"],
+    "rail-systems":   ["beacon","pramaan","energygpu","reachinbox","watermark"],
+    "rail-fullstack": ["shopzone","watermark","reachinbox","placetrack","diabetes"],
+    "rail-ml":        ["pramaan","parakh","scamdetect","microplastic","diabetes","facereco"],
     "rail-more":      ["vulnweb","airline","visualizers","medstore","translator"]
   };
 
